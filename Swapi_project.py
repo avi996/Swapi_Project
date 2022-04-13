@@ -22,7 +22,7 @@ def swapi(url):
         list += data["results"]
     return list
 
-# Returns all starships from each page
+# Returns all starships from each page as a list
 starship_list = swapi('https://swapi.dev/api/starships/')
 
 # Drops the previous starships collection
@@ -38,5 +38,6 @@ for i in starship_list:
             pilot_id = db.characters.find_one({"name":pilot_name})["_id"]
             i["pilots"][index] = bson.ObjectId(pilot_id)
 
+# Inserting updated documents into starships collection in mongodb
 for document in starship_list:
     db.starships.insert_one(document)
